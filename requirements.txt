@@ -2,3 +2,6 @@ fastapi
 uvicorn
 qrcode
 pillow
+python-multipart
+svgwrite
+jinja2

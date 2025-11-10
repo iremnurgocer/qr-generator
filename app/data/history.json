@@ -1,0 +1,80 @@
+[
+  {
+    "timestamp": "2025-11-10T11:29:00.345290",
+    "file_name": "qr_20251110_142900_271681.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142900_271681.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#ec03fc",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "M",
+    "output_format": "png",
+    "with_logo": true
+  },
+  {
+    "timestamp": "2025-11-10T11:28:54.696913",
+    "file_name": "qr_20251110_142854_658936.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142854_658936.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#ec03fc",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "M",
+    "output_format": "png",
+    "with_logo": false
+  },
+  {
+    "timestamp": "2025-11-10T11:28:44.644683",
+    "file_name": "qr_20251110_142844_535178.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142844_535178.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#11ff00",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "M",
+    "output_format": "png",
+    "with_logo": true
+  },
+  {
+    "timestamp": "2025-11-10T11:28:29.052426",
+    "file_name": "qr_20251110_142829_037104.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142829_037104.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#000000",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "L",
+    "output_format": "png",
+    "with_logo": false
+  },
+  {
+    "timestamp": "2025-11-10T11:28:23.485976",
+    "file_name": "qr_20251110_142823_400264.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142823_400264.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#000000",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "M",
+    "output_format": "png",
+    "with_logo": true
+  },
+  {
+    "timestamp": "2025-11-10T11:28:08.744241",
+    "file_name": "qr_20251110_142808_690492.png",
+    "relative_path": "/static/qrcodes/qr_20251110_142808_690492.png",
+    "preview_text": "https://github.com/iremnurgocer/qr-generator",
+    "fill_color": "#000000",
+    "back_color": "#ffffff",
+    "box_size": 10,
+    "border": 4,
+    "error_correction": "M",
+    "output_format": "png",
+    "with_logo": false
+  }
+]

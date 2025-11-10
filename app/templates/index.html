@@ -5,81 +5,360 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --surface: #ffffff;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --background: #f5f7fb;
+            --radius-lg: 18px;
+            --radius-md: 12px;
         }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 400px;
-        }
-        h1 {
-            margin-bottom: 20px;
-            font-size: 1.6em;
-        }
-        form input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            margin-bottom: 15px;
+        * {
             box-sizing: border-box;
         }
-        form button {
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            background-color: #0078d7;
-            color: white;
-            border-radius: 6px;
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #eef2ff, #f5f7fb 55%);
+            color: #111827;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            max-width: 1200px;
+            margin: 48px auto 0;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 2.3vw, 2.6rem);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        header h1 span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(79, 70, 229, 0.12);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        header a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            background: rgba(79, 70, 229, 0.1);
+            padding: 10px 18px;
+            border-radius: 999px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        header a:hover {
+            background: rgba(79, 70, 229, 0.18);
+            transform: translateY(-1px);
+        }
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 28px auto 60px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 28px;
+        }
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 45px rgba(79, 70, 229, 0.08);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 1.35rem;
+        }
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: -8px 0 0 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #111827;
+            font-weight: 500;
+        }
+        .input,
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background: #fbfbfe;
+        }
+        .input:focus,
+        select:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+        input[type="color"] {
+            width: 100%;
+            height: 44px;
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
             cursor: pointer;
         }
-        form button:hover {
-            background-color: #005fa3;
+        .grid {
+            display: grid;
+            gap: 18px;
+        }
+        .grid.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid.three {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
+        }
+        .alert {
+            border-radius: var(--radius-md);
+            padding: 14px;
+            font-size: 0.95rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .alert.success {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .alert.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+        .preview-card {
+            text-align: center;
+            align-items: center;
+        }
+        .preview-wrapper {
+            background: linear-gradient(145deg, rgba(79, 70, 229, 0.08), rgba(59, 130, 246, 0.08));
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
         }
         .qr-section {
-            margin-top: 25px;
-            word-wrap: break-word;      /* Uzun metinleri kırar */
-            overflow-wrap: anywhere;    /* Gerektiğinde kelimeyi böler */
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            text-align: center;
         }
         .qr-section strong {
-            display: block;
-            margin: 10px 0;
-            font-size: 0.9em;
-            color: #333;
+            word-break: break-word;
+            font-size: 0.95rem;
         }
         .qr-section img {
-            margin-top: 10px;
-            width: 200px;
-            height: 200px;
+            width: clamp(200px, 22vw, 260px);
+            height: clamp(200px, 22vw, 260px);
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            padding: 14px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+        }
+        .secondary-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .secondary-actions a {
+            color: var(--primary-dark);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .secondary-actions a:hover {
+            text-decoration: underline;
+        }
+        .empty-preview {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 992px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            .preview-card {
+                order: -1;
+            }
+        }
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            header a {
+                align-self: flex-start;
+            }
+            .card {
+                padding: 22px;
+            }
+            .grid.two {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>QR Code Generator</h1>
-        <form action="/generate" method="post">
-            <input type="text" name="data" placeholder="Enter text or URL" required value="{{ input_data if input_data else '' }}">
-            <button type="submit">Generate</button>
-        </form>
+    <header>
+        <h1><span>QR</span> QR Code Generator</h1>
+        <a href="/history">Geçmişi Gör</a>
+    </header>
 
-        {% if qr_path %}
-        <div class="qr-section">
-            <p>Generated QR Code for:</p>
-            <strong>{{ input_data }}</strong>
-            <img src="{{ qr_path }}" alt="QR Code">
-        </div>
-        {% endif %}
-    </div>
+    <main>
+        <section class="card">
+            <div>
+                <h2>Kendi QR Kodunu Tasarla</h2>
+                <p class="subtitle">Markanıza uyum sağlayan renkler, formatlar ve logo seçenekleri ile birkaç saniyede üretin.</p>
+            </div>
+
+            {% if message %}
+            <div class="alert {{ message_type }}">
+                {{ message }}
+            </div>
+            {% endif %}
+
+            <form action="/generate" method="post" enctype="multipart/form-data">
+                <label>
+                    Metin veya URL
+                    <input class="input" type="text" name="data" placeholder="Örneğin: https://siteniz.com/indir" required value="{{ input_data if input_data else '' }}">
+                </label>
+
+                <div class="grid two">
+                    <label>
+                        Ön plan rengi
+                        <input type="color" name="fill_color" value="{{ fill_color if fill_color else '#000000' }}">
+                    </label>
+                    <label>
+                        Arka plan rengi
+                        <input type="color" name="back_color" value="{{ back_color if back_color else '#ffffff' }}">
+                    </label>
+                </div>
+
+                <div class="grid two">
+                    <label>
+                        QR boyutu (2 - 20)
+                        <input class="input" type="number" name="box_size" min="2" max="20" value="{{ box_size if box_size else 10 }}">
+                    </label>
+                    <label>
+                        Kenarlık kalınlığı (1 - 10)
+                        <input class="input" type="number" name="border" min="1" max="10" value="{{ border if border else 4 }}">
+                    </label>
+                </div>
+
+                <div class="grid two">
+                    <label>
+                        Hata düzeltme seviyesi
+                        <select name="error_correction">
+                            <option value="L" {% if error_correction == "L" %}selected{% endif %}>L (En düşük)</option>
+                            <option value="M" {% if error_correction == "M" %}selected{% endif %}>M (Varsayılan)</option>
+                            <option value="Q" {% if error_correction == "Q" %}selected{% endif %}>Q (Yüksek)</option>
+                            <option value="H" {% if error_correction == "H" %}selected{% endif %}>H (En yüksek)</option>
+                        </select>
+                    </label>
+                    <label>
+                        Çıktı formatı
+                        <select name="output_format">
+                            <option value="png" {% if output_format == "png" %}selected{% endif %}>PNG (Logo destekler)</option>
+                            <option value="svg" {% if output_format == "svg" %}selected{% endif %}>SVG (Vektörel)</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label>
+                    Logo ekle (PNG/JPG, maks 2 MB)
+                    <input type="file" name="logo" accept=".png,.jpg,.jpeg">
+                </label>
+
+                <button type="submit">QR Kodunu Oluştur</button>
+            </form>
+        </section>
+
+        <section class="card preview-card">
+            <div>
+                <h2>Canlı Önizleme</h2>
+                <p class="subtitle">Renklere karar verin, logonuzla denemeler yapın ve indirmeden önce görünümü kontrol edin.</p>
+            </div>
+
+            <div class="preview-wrapper">
+                {% if qr_path %}
+                <div class="qr-section">
+                    <img src="{{ qr_path }}" alt="QR Code">
+                    <strong>{{ input_data }}</strong>
+                </div>
+                {% else %}
+                <p class="empty-preview">
+                    Henüz bir QR kodu üretmediniz. Formu doldurun ve <strong>QR Kodunu Oluştur</strong> tuşuna basın, sonuç burada görünecek.
+                </p>
+                {% endif %}
+
+                <div class="secondary-actions">
+                    {% if qr_download_url %}
+                    <a href="{{ qr_download_url }}" download>QR Kodunu indir</a>
+                    {% endif %}
+                    {% if qr_path %}
+                    <a href="{{ qr_path }}" target="_blank">Yeni sekmede aç</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

@@ -6,26 +6,43 @@ Each QR code is created instantly and displayed on the page with the option to s
 
 ---
 
+## Features
+
+- Generate QR codes instantly from any text or URL
+- Customize foreground/background colors, box size, border and error correction level
+- Upload a logo to embed inside PNG QR codes or export to SVG for vector workflows
+- Download generated QR codes directly from the browser and revisit the last 50 creations
+- Automatic cleanup keeps the latest 100 QR codes for convenience
+- Dedicated history view for reusing your previous designs
+
+---
+
 ## Installation & Setup
 
-### 1. Clone the Repository
-git clone https://github.com/iremnurgocer/qr-generator.git  
+### Windows (recommended)
+
+1. Double-click `kurulum.bat` to create the virtual environment and install dependencies.
+2. After the setup completes, run `baslat.bat` to start the development server.
+3. Open your browser and navigate to: http://127.0.0.1:8000
+
+### Manual Setup
+
+```bash
+git clone https://github.com/iremnurgocer/qr-generator.git
 cd qr-generator
-
-### 2. Create and Activate Virtual Environment
-python3 -m venv venv  
-source venv/bin/activate
-
-### 3. Install Dependencies
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-### 4. Run the Application
 uvicorn app.main:app --reload
+```
 
-Then open your browser and go to:  
-http://127.0.0.1:8000  
+Visit http://127.0.0.1:8000 and start generating QR codes.
 
-Enter any text or URL and click **Generate** to instantly create your QR code.
+## Usage Tips
+
+- Use the customization panel to adjust colors, size and correction level to fit your brand.
+- PNG exports support logo overlays (PNG/JPG up to 2 MB). SVG exports give scalable output without a logo.
+- Click **Geçmişi Gör** to browse the most recent 50 QR codes, download them again or open in a new tab.
 
 ---
 
